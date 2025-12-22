@@ -107,19 +107,21 @@ class Board {
         if (linesToClear.length > 0) {
             this.isClearing = true;
             this.animateClear(linesToClear, () => {
-                // Remove lines after animation
-                linesToClear.sort((a, b) => a - b); // Ascending order
-                linesToClear.forEach(r => {
-                    this.grid.splice(r, 1);
-                    this.grid.unshift(Array(BOARD_WIDTH).fill(0));
-                });
-
+                this.removeLines(linesToClear);
                 this.isClearing = false;
                 this.spawnOnNextUpdate(linesToClear.length, onLockCallback);
             });
         } else {
             this.spawnOnNextUpdate(0, onLockCallback);
         }
+    }
+
+    removeLines(linesToClear) {
+        linesToClear.sort((a, b) => a - b); // Ascending order
+        linesToClear.forEach(r => {
+            this.grid.splice(r, 1);
+            this.grid.unshift(Array(BOARD_WIDTH).fill(0));
+        });
     }
 
     spawnOnNextUpdate(linesCleared, callback) {
