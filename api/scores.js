@@ -1,6 +1,6 @@
 import { put, list, head } from '@vercel/blob';
 
-const SCORES_FILE = 'scores.json';
+const SCORES_FILE = process.env.SCORES_FILENAME || 'scores.json';
 
 // Helper to get current scores
 async function getScores() {
