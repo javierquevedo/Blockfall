@@ -6,7 +6,7 @@ class GameScene extends Phaser.Scene {
     }
 
     create() {
-        this.add.text(512, 30, '2-Player Tetris', {
+        this.add.text(512, 30, 'Blockfall', {
             fontSize: '32px',
             fill: '#ffffff',
             align: 'center'
