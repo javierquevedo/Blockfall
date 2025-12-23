@@ -1,2 +1,5 @@
 node_modules
+local-scores.json
 .DS_Store
+.vercel
+.env*.local

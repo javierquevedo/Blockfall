@@ -3,6 +3,7 @@ class GameScene extends Phaser.Scene {
         super('GameScene');
         this.players = [];
         this.gameOver = false;
+        this.preGame = true;
     }
 
     create() {
@@ -71,10 +72,36 @@ class GameScene extends Phaser.Scene {
 
         // Player 2: Arrows, Right Board
         this.players.push(new Player(this, 600, 100, this.input.keyboard.createCursorKeys(), 2, onGameOver));
+
+        this.showPreGameScores();
+    }
+
+    async showPreGameScores() {
+        const bg = this.add.rectangle(512, 384, 400, 300, 0x000000, 0.8).setDepth(10);
+        const title = this.add.text(512, 300, '--- TOP SCORES ---', { fontSize: '24px', fill: '#ffff00' }).setOrigin(0.5).setDepth(11);
+        const group = [bg, title];
+
+        try {
+            const res = await fetch('/api/scores');
+            if (res.ok) {
+                const scores = await res.json();
+                scores.slice(0, 5).forEach((entry, i) => {
+                    const text = this.add.text(512, 340 + (i * 25), `${i + 1}. ${entry.player_name}: ${entry.score}`, { fontSize: '18px', fill: '#fff' }).setOrigin(0.5).setDepth(11);
+                    group.push(text);
+                });
+            }
+        } catch (err) {
+            console.warn('Could not fetch scores for pre-game display', err);
+        }
+
+        this.time.delayedCall(1000, () => {
+            group.forEach(obj => obj.destroy());
+            this.preGame = false;
+        });
     }
 
     update(time, delta) {
-        if (this.gameOver) return;
+        if (this.gameOver || this.preGame) return;
         this.players.forEach(player => player.update(time));
     }
 }
