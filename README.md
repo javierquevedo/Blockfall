@@ -45,3 +45,13 @@ The game will be available at [http://localhost:8080](http://localhost:8080).
 
 ### Running Tests
 Automated unit tests are available at [http://localhost:8080/tests.html](http://localhost:8080/tests.html) while the server is running.
+
+## Deployment
+
+### Vercel
+1. Push your code to a GitHub repository.
+2. Log in to [Vercel](https://vercel.com/).
+3. Click "Add New" -> "Project".
+4. Import your GitHub repository.
+5. Vercel will automatically detect the static project. Click **Deploy**.
+6. Once deployed, you can access your game via the provided Vercel URL.

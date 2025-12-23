@@ -1,0 +1,10 @@
+{
+    "name": "blockfall",
+    "cleanUrls": true,
+    "rewrites": [
+        {
+            "source": "/test",
+            "destination": "/tests.html"
+        }
+    ]
+}
